@@ -2,8 +2,8 @@
 
 This project contains the implementation of our work for open-set panoptic segmentation:
     
-> Dual Decision Improves Open-Set Panoptic Segmentation, 
-> Hai-Ming Xu, Hao Chen, Lingqiao Liu and Yufei Yin, 
+> Dual Decision Improves Open-Set Panoptic Segmentation,    
+> Hai-Ming Xu, Hao Chen, Lingqiao Liu and Yufei Yin,    
 > *Accepted to BMVC 2022*
     
 The full paper is available at: [Arxiv Link](https://arxiv.org/abs/2207.02504) or [BMVC Official Page](https://bmvc2022.mpi-inf.mpg.de/190/).
