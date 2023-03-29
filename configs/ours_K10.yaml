@@ -1,0 +1,63 @@
+_BASE_: "Base-Panoptic-FPN.yaml"
+MODEL:
+  WEIGHTS: "checkpoints/R-50.pkl"
+  META_ARCHITECTURE: "PanopticFPN_baseline"
+  RESNETS:
+    DEPTH: 50
+  ROI_MASK_HEAD:
+      NAME: "MaskRCNNConvUpsampleHead_baseline"
+      CLS_AGNOSTIC_MASK: True
+  ROI_BOX_HEAD:
+      NAME: "FastRCNNConvFCHead"
+      CLS_AGNOSTIC_BBOX_REG: True
+  ROI_HEADS:
+      NAME: "StandardROIHeads_baseline"
+  RPN:
+   HEAD_NAME: "StandardRPNHead_baseline"
+  SEM_SEG_HEAD:
+   NAME: "SemSegFPNHead_baseline"
+  PROPOSAL_GENERATOR:
+   NAME: "RPN_baseline"
+  EOPSN:
+   UNLABELED_REGION: True
+   IGNORE_UNLABELED_REGION: True
+   SEM_SEG_UNLABELED_REGION: True
+   VOID_SUPPRESSION: True
+   PSEUDO_SUPPRESSION: True
+   PRE_PROCESS_UNK: True
+   SEM_SEG_FILTER_UNK: False
+  #  mixup op
+   MIXUP_ALPHA: -1.0
+   MIXUP_KNOWN_UNK: False
+   MIXUP_UNK_UNK: False
+  #  aux obj
+   AUX_OBJ_HEAD: True
+   OBJ_SCORE_THRESHOLD: 0.45
+   AUX_OBJ_HEAD_PSEUDO_INST: True
+   OBJ_HEAD_PSEUDO_INST: False #True
+  #  ood head
+   OOD_HEAD: False
+  #  void pseudo labeling
+   VOID_PSEUDO_LABELING: True
+   VOID_OBJ_CONFIDENCE: 0.9
+   PSEUDO_INST_PSEUDO_LABELING: True  # do pseudo-labeling on pseudoInst(heuristic PL)
+   PSEUDO_INST_OBJ_CONFIDENCE: 0.5
+SOLVER:
+  IMS_PER_BATCH: 32
+  STEPS: (30000, 40000)
+  MAX_ITER: 45000
+  BASE_LR: 0.04
+SEED:  13
+DATASETS:
+  ONLINE_PROCESS_UNK: True
+  TRAIN: ("coco_2017_train_panoptic_origin_separated",)
+  TEST: ("coco_2017_val_panoptic_separated",)
+  UNSEEN_LABEL_SET: 'datasets/unknown/unknown_K10.txt'
+  OPENPS:
+   BOX_MIN_W: 0 #40
+   BOX_MIN_H: 0 #40
+   MASK_BOX_RATIO: 0.0 #0.5
+   BOX_RANGE_RATIO: 1.0 #0.9
+OUTPUT_DIR: ./ours_K10
+
+
